@@ -1,0 +1,565 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Lost and Found Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    /* For the back button image filter in dark mode */
+    .filter-white {
+      filter: brightness(0) invert(1);
+    }
+  </style>
+</head>
+<body
+  class="bg-white text-black p-4 transition-colors duration-300"
+  id="pageBody"
+>
+  <header class="flex items-center justify-between px-4 py-3 relative">
+    <button
+      aria-label="Back"
+      class="bg-transparent p-0"
+      id="backBtn"
+      style="background:none;"
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Universiti_Sains_Malaysia_logo.svg/1200px-Universiti_Sains_Malaysia_logo.svg.png"
+        alt="Universiti Sains Malaysia official logo in blue and white with a stylized book and crescent moon"
+        class="w-10 h-10 object-contain"
+      />
+    </button>
+    <div
+      class="flex space-x-4 text-black text-xl absolute top-2 right-2"
+      id="headerIcons"
+    >
+      <button
+        aria-label="Toggle dark mode"
+        class="focus:outline-none bg-transparent"
+        id="darkModeToggle"
+        style="background:none;"
+      >
+        <i
+          class="fas fa-moon text-3xl cursor-pointer"
+          id="darkModeIcon"
+        ></i>
+      </button>
+      <button
+        aria-label="Notifications"
+        class="focus:outline-none bg-transparent"
+        id="notificationBtn"
+        style="background:none;"
+      >
+        <i class="fas fa-bell text-3xl"></i>
+      </button>
+    </div>
+  </header>
+
+  <section
+    class="mb-4 px-2 transition-colors duration-300"
+    id="greetingSection"
+  >
+    <p class="text-lg">Hello,</p>
+    <p class="text-xl -mt-1 font-semibold">Ruszil</p>
+  </section>
+
+  <button
+    class="w-full bg-gray-300 rounded-lg py-3 px-4 flex items-center space-x-3 text-lg text-gray-800 mb-4 hover:bg-gray-400 transition-colors"
+    type="button"
+    id="post-item-button"
+  >
+    <i class="fas fa-plus text-xl"></i>
+    <span>Post an item</span>
+  </button>
+
+  <section>
+    <p class="font-semibold mb-1 px-2 text-lg">Found Items</p>
+    <div
+      class="flex flex-wrap gap-2 mb-3 px-2"
+      id="filterBar"
+    >
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn active"
+        data-filter="all"
+        type="button"
+      >
+        All
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="phone"
+        type="button"
+      >
+        Phone
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="umbrella"
+        type="button"
+      >
+        Umbrella
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="laptop"
+        type="button"
+      >
+        Laptop
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="wallet"
+        type="button"
+      >
+        Wallet
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="keys"
+        type="button"
+      >
+        Keys
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="idcards"
+        type="button"
+      >
+        ID Cards
+      </button>
+      <button
+        class="bg-gray-300 rounded-full px-3 py-1 text-sm font-serif font-normal filter-btn"
+        data-filter="books"
+        type="button"
+      >
+        Books
+      </button>
+    </div>
+    <div class="space-y-3 px-2" id="itemsList">
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="earphones"
+      >
+        <p class="font-serif text-base">
+          White Earphones
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          CBDEM
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="laptop"
+      >
+        <p class="font-serif text-base">
+          Lenovo Laptop
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          CEIT
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="umbrella"
+      >
+        <p class="font-serif text-base">
+          Black Umbrella
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Library
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="phone"
+      >
+        <p class="font-serif text-base">
+          Samsung Phone
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Cafeteria
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="wallet"
+      >
+        <p class="font-serif text-base">
+          Blue Wallet
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Sports Complex
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="keys"
+      >
+        <p class="font-serif text-base">
+          Set of Keys
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Auditorium
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="idcards"
+      >
+        <p class="font-serif text-base">
+          Student ID Card
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Admin Office
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="books"
+      >
+        <p class="font-serif text-base">
+          Calculus Textbook
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Science Block
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="phone"
+      >
+        <p class="font-serif text-base">
+          iPhone 12
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Main Entrance
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="wallet"
+      >
+        <p class="font-serif text-base">
+          Black Leather Wallet
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Parking Lot
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="books"
+      >
+        <p class="font-serif text-base">
+          English Literature Book
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Humanities Block
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="umbrella"
+      >
+        <p class="font-serif text-base">
+          Red Umbrella
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Bus Stop
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+      <div
+        class="rounded-md p-3 item bg-gray-300 text-black cursor-pointer transition-all duration-300 relative overflow-hidden"
+        data-category="keys"
+      >
+        <p class="font-serif text-base">
+          Car Keys with Keychain
+        </p>
+        <p class="font-serif text-base flex items-center">
+          <i class="fas fa-map-marker-alt mr-1"></i>
+          Parking Garage
+        </p>
+        <button
+          class="absolute bottom-3 right-3 bg-blue-600 text-white text-lg font-semibold px-5 py-2 rounded opacity-0 pointer-events-none transition-opacity duration-300 claim-btn"
+          type="button"
+        >
+          Claim
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".item");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("active", "bg-blue-500", "text-white");
+          btn.style.backgroundColor = "";
+          btn.style.color = "";
+        });
+        button.classList.add("active");
+        button.style.backgroundColor = "#3b82f6";
+        button.style.color = "white";
+
+        const filter = button.getAttribute("data-filter");
+
+        items.forEach((item) => {
+          if (filter === "all") {
+            item.style.display = "block";
+          } else {
+            if (
+              item.getAttribute("data-category").toLowerCase() ===
+              filter.toLowerCase()
+            ) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          }
+        });
+      });
+    });
+
+    // Initialize the "All" button style on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+      if (allBtn) {
+        allBtn.style.backgroundColor = "#3b82f6";
+        allBtn.style.color = "white";
+      }
+    });
+
+    // Dark mode toggle with icon change and full page dark mode
+    const darkModeToggle = document.getElementById("darkModeIcon");
+    const body = document.getElementById("pageBody");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const postBtn = document.getElementById("post-item-button");
+    const itemsList = document.querySelectorAll(".item");
+    const headerIcons = document.getElementById("headerIcons");
+    const backBtn = document.getElementById("backBtn");
+    const greetingSection = document.getElementById("greetingSection");
+
+    darkModeToggle.addEventListener("click", () => {
+      const isDark =
+        body.classList.toggle("bg-black") && body.classList.toggle("text-white");
+
+      // Update filter buttons colors for dark mode
+      filterBtns.forEach((btn) => {
+        if (body.classList.contains("bg-black")) {
+          btn.classList.remove("bg-gray-300", "text-black");
+          btn.classList.add("bg-gray-700", "text-white");
+        } else {
+          btn.classList.remove("bg-gray-700", "text-white");
+          btn.classList.add("bg-gray-300", "text-black");
+        }
+      });
+
+      // Update post button colors for dark mode
+      if (body.classList.contains("bg-black")) {
+        postBtn.classList.remove("bg-gray-300", "text-gray-800");
+        postBtn.classList.add("bg-gray-700", "text-white");
+      } else {
+        postBtn.classList.remove("bg-gray-700", "text-white");
+        postBtn.classList.add("bg-gray-300", "text-gray-800");
+      }
+
+      // Update item backgrounds for dark mode
+      itemsList.forEach((item) => {
+        if (body.classList.contains("bg-black")) {
+          item.classList.remove("bg-gray-300", "text-black");
+          item.classList.add("bg-gray-700", "text-white");
+        } else {
+          item.classList.remove("bg-gray-700", "text-white");
+          item.classList.add("bg-gray-300", "text-black");
+        }
+      });
+
+      // Update header icons color for dark mode
+      if (body.classList.contains("bg-black")) {
+        headerIcons.classList.remove("text-black");
+        headerIcons.classList.add("text-white");
+        backBtn.querySelector("img").classList.add("filter-white");
+      } else {
+        headerIcons.classList.remove("text-white");
+        headerIcons.classList.add("text-black");
+        backBtn.querySelector("img").classList.remove("filter-white");
+      }
+
+      // Make greeting section text white in dark mode, black in light mode
+      if (body.classList.contains("bg-black")) {
+        greetingSection.classList.add("text-white");
+        greetingSection.classList.remove("text-black");
+      } else {
+        greetingSection.classList.remove("text-white");
+        greetingSection.classList.add("text-black");
+      }
+
+      // Change icon from moon to sun and vice versa
+      if (body.classList.contains("bg-black")) {
+        darkModeToggle.classList.remove("fa-moon");
+        darkModeToggle.classList.add("fa-sun");
+      } else {
+        darkModeToggle.classList.remove("fa-sun");
+        darkModeToggle.classList.add("fa-moon");
+      }
+    });
+
+    // Post item button navigation
+    const postItemBtn = document.getElementById("post-item-button");
+    postItemBtn.addEventListener("click", () => {
+      window.location.href = "newpage.html";
+    });
+
+    // Notification button navigation
+    const notificationBtn = document.getElementById("notificationBtn");
+    notificationBtn.addEventListener("click", () => {
+      window.location.href = "NotificationPage.html";
+    });
+
+    // Expand item and show Claim button on click
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        // Collapse all other items
+        items.forEach((other) => {
+          if (other !== item) {
+            other.style.maxHeight = null;
+            other.classList.remove("expanded");
+            const btn = other.querySelector(".claim-btn");
+            if (btn) {
+              btn.style.opacity = "0";
+              btn.style.pointerEvents = "none";
+            }
+          }
+        });
+
+        // Toggle current item
+        const isExpanded = item.classList.contains("expanded");
+        if (isExpanded) {
+          item.style.maxHeight = null;
+          item.classList.remove("expanded");
+          const btn = item.querySelector(".claim-btn");
+          if (btn) {
+            btn.style.opacity = "0";
+            btn.style.pointerEvents = "none";
+          }
+        } else {
+          item.style.maxHeight = "200px";
+          item.classList.add("expanded");
+          const btn = item.querySelector(".claim-btn");
+          if (btn) {
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
+          }
+        }
+      });
+    });
+
+    // Claim button navigation
+    const claimButtons = document.querySelectorAll(".claim-btn");
+    claimButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent triggering the item click event
+        window.location.href = "Claimpage.html";
+      });
+    });
+  </script>
+</body>
+</html>
